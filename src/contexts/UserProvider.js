@@ -6,7 +6,8 @@ const UserProvider = ({children}) => {
   const [userDetails, setUserDetails] = useState({
     name: null,
     email: null,
-    password: null
+    password: null,
+    password_confirmation: null
   })
 
   const retrieveData = async () => {

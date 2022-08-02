@@ -27,8 +27,6 @@ function Index(props) {
 
   useEffect(() => {
 
-    console.log('env', DATABASE)
-
     retriveData()
   }, [3000])
 

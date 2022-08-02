@@ -1,31 +1,34 @@
-import React from 'react'
 import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 30,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: "20%",
+  container: {
+    flex: 1,
   },
-  input: {
-    borderBottomWidth: 1,
-    borderColor: '#CECECE',
+  imageBackground: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: 'center'
+  },
+  viewHeader: {
+    flex: 1.8,
     width: '80%',
+    marginTop: 60,
   },
-  inputContainer: {
-    alignItems: 'center',
-    marginVertical: 20
+  viewButtons: {
+    flex: 1,
   },
-  button: {
-    paddingHorizontal: 120,
-    justifyContent: 'center'
+  buttonWhite: {
+    marginVertical: 12,
+    backgroundColor: 'white',
+    borderRadius: 30,
   },
-  textButton: {
-    color: 'white',
+  textButtonWhite: {
+    color: '#FF5F2E',
     textAlign:'center',
-    backgroundColor: '#60BEB0',
-    padding: 20
+    paddingHorizontal: 60,
+    paddingVertical: 20,
+    fontSize: 20,
+    fontFamily: 'sans-serif-thin',
   }
 })
 

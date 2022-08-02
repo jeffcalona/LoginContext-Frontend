@@ -15,11 +15,14 @@ function Index (props) {
 
   const name = userDetails.name
 
+  console.log('namee: ', name)
+  
+
+
   const navigateLogin = async() => {
     try {
       await AsyncStorage.removeItem('user')
-      navigation.navigate('Login')
-      console.log('logout')
+      navigation.navigate('Welcome')
       setUserDetails({})
     } catch (error) {
       console.log(error)

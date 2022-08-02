@@ -1,24 +1,18 @@
 import React, {useState, useContext} from 'react'
-import {View, Text, TextInput, TouchableOpacity} from 'react-native'
+import {View, Text, TextInput, TouchableOpacity, ImageBackground} from 'react-native'
 import axios from 'axios'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import UserContext from '../../contexts/UserContext.js';
 
-import {DATABASELOGIN} from '../../../Env'
+import imageBackground from '../assets/img/Background.jpeg'
 
 import {styles} from './assets/styles.js'
 
 function Index (props) {
 
   const {navigation} = props
-
-  /*const dummy = {
-    name: '',
-    email : "prueba",
-    password : "123456"
-  }*/
 
   const [formInfo , setFormInfo] = useState({
     name: '',
@@ -27,7 +21,6 @@ function Index (props) {
   })
 
   const {userDetails, setUserDetails} = useContext(UserContext)
-
 
   function onChangeText(text, key){
     setFormInfo({
@@ -38,44 +31,40 @@ function Index (props) {
 
   const value = formInfo
 
-  const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem('user', jsonValue)
-      setUserDetails({...value})
-      navigation.navigate('Home')
-    } catch (e) {
-      // saving error
-    }
-  }
-
   const login = async () => {
 
-   // const data = {...}
+   const data = {...value}
 
-    const user = await axios.post(DATABASELOGIN, data)
+    const user = await axios.post(`${process.env.DATABASE}${'login'}`, data)
     if (user) {
-      storeData(value)
+      const userData = user.data
+      
+      const jsonValue = JSON.stringify(userData)
+      await AsyncStorage.setItem('user', jsonValue)
+      setUserDetails({...userData})
+
+      navigation.navigate('Home')
     } else alert('Datos incorrectos')
   }
 
  
 
   return (
-    <View style={styles.contatiner}>
-      <Text style={styles.title}>Login Screen</Text>
-      <View style={styles.inputContainer}>
-        <Text>Ingrese Email</Text>
-        <TextInput style={styles.input} placeholder='Email' onChangeText={text => onChangeText(text, 'email')}/>
-      </View>
-      <View style={styles.inputContainer}>
-        <Text>Ingrese Contraseña</Text>
-        <TextInput style={styles.input} placeholder='Contraseña' secureTextEntry onChangeText={text => onChangeText(text, 'password')}/>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={() => login()}>
-        <Text style={styles.textButton}>Iniciar Sesiòn</Text>
-      </TouchableOpacity>
-
+    <View style={styles.container}>
+      <ImageBackground source={imageBackground} style={styles.imageBackground}>
+        <Text style={styles.title}>Login Screen</Text>
+        <View style={styles.inputContainer}>
+          <Text>Ingrese Email</Text>
+          <TextInput style={styles.input} placeholder='Email' onChangeText={text => onChangeText(text, 'email')}/>
+        </View>
+        <View style={styles.inputContainer}>
+          <Text>Ingrese Contraseña</Text>
+          <TextInput style={styles.input} placeholder='Contraseña' secureTextEntry onChangeText={text => onChangeText(text, 'password')}/>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={() => login()}>
+          <Text style={styles.textButton}>Iniciar Sesión</Text>
+        </TouchableOpacity>
+      </ImageBackground>
     </View>
   )
 }
